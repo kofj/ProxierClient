@@ -5,7 +5,9 @@
     "author": "Frank Kung",
     "email": "kfanjian@gmail.com",
     "main": "src/main.js",
-    "dependencies": {},
+    "dependencies": {
+        "flags": "*"
+    },
     "devDependencies": {},
     "scripts": {
         "start": "electron ."
