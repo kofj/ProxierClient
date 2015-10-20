@@ -5,9 +5,14 @@
 // require modules.
 var app = require('app');
 var BrowserWindow = require('browser-window');
+var flags = require('flags');
 
 // declear variables.
 var mainWindow = null;
+
+// flags
+flags.defineBoolean('hidden', false, 'hidden main window.');
+flags.parse();
 
 /*
 listen event.
