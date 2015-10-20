@@ -1,0 +1,13 @@
+{
+    "name": "Proxier",
+    "description": "The client of the proxier.",
+    "version": "0.1.0",
+    "author": "Frank Kung",
+    "email": "kfanjian@gmail.com",
+    "main": "src/main.js",
+    "dependencies": {},
+    "devDependencies": {},
+    "scripts": {
+        "start": "electron ."
+    }
+}
