@@ -19,13 +19,13 @@ listen event.
 */
 
 app.on('ready', function() {
-    mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800,
-        frame: false
-    });
-
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+	// control main window by hidden flag when app start.
+    if (!flags.get('hidden')) {
+        mainWindow = new BrowserWindow({
+            height: 600,
+            width: 800,
+            frame: true
+        });
 
         mainWindow.loadUrl('file://' + __dirname + '/index.html');
     }
