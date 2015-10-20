@@ -19,4 +19,7 @@ app.on('ready', function() {
         width: 800,
         frame: false
     });
-})
+
+    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+
+});
