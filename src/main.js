@@ -22,4 +22,6 @@ app.on('ready', function() {
 
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
+        mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    }
 });
