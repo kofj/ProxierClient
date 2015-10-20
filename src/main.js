@@ -19,11 +19,13 @@ listen event.
 */
 
 app.on('ready', function() {
-	// control main window by hidden flag when app start.
+    // control main window by hidden flag when app start.
     if (!flags.get('hidden')) {
         mainWindow = new BrowserWindow({
             height: 600,
             width: 800,
+            'min-height': 600,
+            'min-width': 800,
             frame: true
         });
 
