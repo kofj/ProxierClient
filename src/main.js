@@ -7,9 +7,11 @@ var app = require('app');
 var BrowserWindow = require('browser-window');
 var flags = require('flags');
 var ipc = require('ipc');
+var Tray = require('tray');
 
 // declear variables.
 var mainWindow = null;
+var appIcon = null;
 
 // flags
 flags.defineBoolean('hidden', false, 'hidden main window.');
@@ -32,6 +34,9 @@ app.on('ready', function() {
 
         mainWindow.loadUrl('file://' + __dirname + '/index.html');
     }
+
+    // add tray
+    appIcon = new Tray(__dirname + '/static/image/tray@4x.png');
 });
 
 ipc.on('app-close-main-window', function() {
