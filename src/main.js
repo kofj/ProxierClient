@@ -6,6 +6,7 @@
 var app = require('app');
 var BrowserWindow = require('browser-window');
 var flags = require('flags');
+var ipc = require('ipc');
 
 // declear variables.
 var mainWindow = null;
@@ -31,4 +32,12 @@ app.on('ready', function() {
 
         mainWindow.loadUrl('file://' + __dirname + '/index.html');
     }
+});
+
+ipc.on('app-close-main-window', function() {
+    mainWindow.hide();
+});
+
+app.on('activate', function(){
+    mainWindow.show();
 });
