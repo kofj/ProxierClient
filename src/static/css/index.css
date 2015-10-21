@@ -1,14 +1,24 @@
 html,
-body {
-    -webkit-app-region: drag;
-}
+body {}
 
 #navbar {
-	width: 100%;
+    width: 100%;
     border-bottom: 3px rgb(66, 193, 247) solid;
 }
 
 #brand {
     color: rgb(66, 193, 247);
     font-size: xx-large;
+}
+
+.drag {
+    -webkit-app-region: drag;
+}
+
+.no-drag {
+    -webkit-app-region: no-drag;
+}
+
+.active {
+    border-top: 3px rgb(66, 193, 247) solid;
 }
