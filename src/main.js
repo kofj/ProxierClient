@@ -17,6 +17,14 @@ var appIcon = null;
 flags.defineBoolean('hide', false, 'hide main window.');
 flags.parse();
 
+var winToggle = function(window) {
+    if (window.isVisible()) {
+        window.hide();
+    } else {
+        window.show();
+    };
+}
+
 /*
 listen event.
 */
@@ -39,6 +47,9 @@ app.on('ready', function() {
 
     // add tray
     appIcon = new Tray(__dirname + '/static/image/tray@4x.png');
+    appIcon.on('clicked', function() {
+        winToggle(mainWindow);
+    })
 });
 
 ipc.on('app-close-main-window', function() {
