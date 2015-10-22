@@ -6,7 +6,8 @@
     "email": "kfanjian@gmail.com",
     "main": "src/main.js",
     "dependencies": {
-        "flags": "*"
+        "flags": "*",
+        "nconf": "*"
     },
     "devDependencies": {},
     "scripts": {
