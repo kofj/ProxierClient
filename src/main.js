@@ -34,15 +34,12 @@ app.on('ready', function() {
     mainWindow = new BrowserWindow({
         height: 600,
         width: 800,
+        show: false,
         'min-height': 600,
         'min-width': 800,
         frame: false
     });
 
-    // control main window by hide flag when app start.
-    if (flags.get('hide')) {
-        mainWindow.hide();
-    }
 
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
