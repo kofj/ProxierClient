@@ -9,6 +9,7 @@ var flags = require('flags');
 var ipc = require('ipc');
 var Tray = require('tray');
 var config = require('./lib/configuration.js');
+var Menu = require('menu');
 
 // declear variables.
 var mainWindow = null;
@@ -31,6 +32,22 @@ listen event.
 */
 
 app.on('ready', function() {
+    var menu = Menu.buildFromTemplate([{
+        label: 'iProixer',
+        submenu: [{
+            label: 'About iProixer',
+            click: function() {
+            }
+        }, {
+            label: 'Quit',
+            accelerator: 'CmdOrCtrl+Q',
+            click: function() {
+                app.quit();
+            }
+        }]
+    }])
+    Menu.setApplicationMenu(menu)
+
     mainWindow = new BrowserWindow({
         height: 600,
         width: 800,
