@@ -89,3 +89,17 @@ var loadAboutWindow = function(show) {
 var closeAboutWindow = function() {
     aboutWindow.destory();
 }
+var loginWindow = null;
+var loadLoginWindow = function(show) {
+    loginWindow = new BrowserWindow({
+        height: 400,
+        width: 300,
+        resizable: false,
+        show: show
+    });
+    loginWindow.loadUrl('file://' + __dirname + '/static/view/login.html');
+}
+var closeLoginWindow = function() {
+    loginWindow.close();
+    loginWindow = null;
+}
