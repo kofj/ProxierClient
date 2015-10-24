@@ -11,28 +11,33 @@ var Tray = require('tray');
 var config = require('./lib/configuration.js');
 var Menu = require('menu');
 
-// declear variables.
-var mainWindow = null;
-var appIcon = null;
-var aboutWindow = null;
+
+var isLogin = false;
 
 // flags
 flags.defineBoolean('hide', false, 'hide main window.');
 flags.parse();
 
-var winToggle = function(window) {
-    if (window.isVisible()) {
-        window.hide();
-    } else {
-        window.show();
-    };
-}
-
-/*
-listen event.
-*/
-
 app.on('ready', function() {
+    var appIcon = new Tray(__dirname + '/static/image/tray@4x.png');
+    appIcon.on('clicked', function() {
+        if (isLogin) {
+            console.log('mainWindow');
+            if (mainWindow) {
+                closeMainWindow();
+            } else {
+                loadMainWindow();
+            };
+        } else {
+            console.log('loginWindow');
+            if (loginWindow) {
+                closeLoginWindow();
+            } else {
+                loadLoginWindow();
+            };
+        };
+    });
+
     var menu = Menu.buildFromTemplate([{
         label: 'iProixer',
         submenu: [{
@@ -47,34 +52,30 @@ app.on('ready', function() {
                 app.quit();
             }
         }]
-    }])
+    }]);
     Menu.setApplicationMenu(menu)
 
-    mainWindow = new BrowserWindow({
-        height: 600,
-        width: 800,
-        show: false,
-        'min-height': 600,
-        'min-width': 800,
-        frame: false
-    });
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    loadHideWindow();
+    if (!flags.get('hide') && isLogin) {
+        loadMainWindow(true);
+    } else {
+        loadLoginWindow();
+    };
 
-    // add tray
-    appIcon = new Tray(__dirname + '/static/image/tray@4x.png');
-    appIcon.on('clicked', function() {
-        winToggle(mainWindow);
-    })
 });
 
 ipc.on('app-close-main-window', function() {
-    mainWindow.hide();
+    closeMainWindow();
 });
 
-app.on('activate', function() {
-    mainWindow.show();
-});
 
+var hideWindow = null;
+var loadHideWindow = function() {
+    hideWindow = new BrowserWindow({
+        show: false
+    });
+}
+var aboutWindow = null;
 var loadAboutWindow = function(show) {
     aboutWindow = new BrowserWindow({
         height: 200,
@@ -88,6 +89,21 @@ var loadAboutWindow = function(show) {
 }
 var closeAboutWindow = function() {
     aboutWindow.destory();
+}
+var mainWindow = null;
+var loadMainWindow = function(show) {
+    mainWindow = new BrowserWindow({
+        height: 600,
+        width: 800,
+        show: show,
+        resizable: false,
+        frame: false
+    });
+    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+}
+var closeMainWindow = function() {
+    mainWindow.close();
+    mainWindow = null;
 }
 var loginWindow = null;
 var loadLoginWindow = function(show) {
