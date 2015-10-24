@@ -14,6 +14,7 @@ var Menu = require('menu');
 // declear variables.
 var mainWindow = null;
 var appIcon = null;
+var aboutWindow = null;
 
 // flags
 flags.defineBoolean('hide', false, 'hide main window.');
@@ -37,6 +38,7 @@ app.on('ready', function() {
         submenu: [{
             label: 'About iProixer',
             click: function() {
+                loadAboutWindow(true);
             }
         }, {
             label: 'Quit',
@@ -56,8 +58,6 @@ app.on('ready', function() {
         'min-width': 800,
         frame: false
     });
-
-
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
 
     // add tray
@@ -74,3 +74,18 @@ ipc.on('app-close-main-window', function() {
 app.on('activate', function() {
     mainWindow.show();
 });
+
+var loadAboutWindow = function(show) {
+    aboutWindow = new BrowserWindow({
+        height: 200,
+        width: 300,
+        show: show,
+        'always-on-top': true,
+        resizable: false,
+        frame: true
+    });
+    aboutWindow.loadUrl('file://' + __dirname + '/static/view/about.html');
+}
+var closeAboutWindow = function() {
+    aboutWindow.destory();
+}
