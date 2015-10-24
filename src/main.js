@@ -100,10 +100,13 @@ var loadMainWindow = function(show) {
         frame: false
     });
     mainWindow.loadUrl('file://' + __dirname + '/index.html');
+    mainWindow.on('closed', function() {
+        mainWindow = null;
+    });
+
 }
 var closeMainWindow = function() {
     mainWindow.close();
-    mainWindow = null;
 }
 var loginWindow = null;
 var loadLoginWindow = function(show) {
@@ -114,8 +117,11 @@ var loadLoginWindow = function(show) {
         show: show
     });
     loginWindow.loadUrl('file://' + __dirname + '/static/view/login.html');
+
+    loginWindow.on('closed', function() {
+        loginWindow = null;
+    });
 }
 var closeLoginWindow = function() {
     loginWindow.close();
-    loginWindow = null;
 }
