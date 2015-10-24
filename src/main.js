@@ -26,14 +26,13 @@ app.on('ready', function() {
             if (mainWindow) {
                 closeMainWindow();
             } else {
-                loadMainWindow();
+                loadMainWindow(true);
             };
         } else {
-            console.log('loginWindow');
             if (loginWindow) {
                 closeLoginWindow();
             } else {
-                loadLoginWindow();
+                loadLoginWindow(true);
             };
         };
     });
@@ -59,7 +58,7 @@ app.on('ready', function() {
     if (!flags.get('hide') && isLogin) {
         loadMainWindow(true);
     } else {
-        loadLoginWindow();
+        loadLoginWindow(true);
     };
 
 });
@@ -88,10 +87,11 @@ var loadAboutWindow = function(show) {
     aboutWindow.loadUrl('file://' + __dirname + '/static/view/about.html');
 }
 var closeAboutWindow = function() {
-    aboutWindow.destory();
+    aboutWindow.close();
 }
 var mainWindow = null;
 var loadMainWindow = function(show) {
+    show = show == undefined ? false : show;
     mainWindow = new BrowserWindow({
         height: 600,
         width: 800,
@@ -110,6 +110,7 @@ var closeMainWindow = function() {
 }
 var loginWindow = null;
 var loadLoginWindow = function(show) {
+    show = show == undefined ? false : show;
     loginWindow = new BrowserWindow({
         height: 400,
         width: 300,
