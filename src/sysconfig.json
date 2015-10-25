@@ -1,0 +1,9 @@
+{
+    "apihost": "",
+    "api": {
+        "islogin": {
+            "url": "/api/v1/islogin",
+            "comment": ""
+        }
+    }
+}
