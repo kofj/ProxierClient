@@ -21,3 +21,16 @@ ep.tail('is-login', function() {
     // send request
     request.get(options, function(err, response, body) {});
 });
+
+ep.tail('login',function() {
+    var options = {
+        url: sysconfig.api('login'),
+        headers: {
+            user: userInfo.name,
+            password: userInfo.password,
+        }
+    }
+
+    // send request
+    request.get(options, function(err, response, body) {});    
+});
