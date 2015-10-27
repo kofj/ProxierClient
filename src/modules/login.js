@@ -56,7 +56,14 @@ ep.tail('login', function() {
                 ipc.send('app-quit');
             };
         } else {
-
+            // parse login api response
+            var res = JSON.parse(body);
+            if (res.data) {
+                ep.emit('update-userinfo', res);
+                ipc.send('login-success');
+            } else {
+                ep.emit('load-login-page');
+            };
         }
     });
 });
