@@ -41,14 +41,14 @@ ep.tail('is-login', function() {
 ep.tail('login', function() {
     var options = {
         url: sysconfig.api('login'),
-        headers: {
+        form: {
             user: userInfo.name,
             password: userInfo.password,
         }
     }
 
     // send request
-    request.get(options, function(err, response, body) {
+    request.post(options, function(err, response, body) {
         if (err) {
             if (confirm('\t' + err + '\n\tCan not connet,click [OK] try again.Or [Cancel] quit app.\n')) {
                 ep.emit('is-login');
