@@ -27,7 +27,14 @@ ep.tail('is-login', function() {
             } else {
                 ipc.send('app-quit');
             };
-        } else {};
+        } else {
+            var res = JSON.parse(body);
+            if (res.data) {
+                ipc.send('login-success');
+            } else {
+                ep.emit('login');
+            };
+        };
     });
 });
 
