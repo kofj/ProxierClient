@@ -47,6 +47,9 @@ ep.tail('login', function() {
         }
     }
 
+    // change tips
+    $('#login-process-tips').text('Waiting for login.');
+
     // send request
     request.post(options, function(err, response, body) {
         if (err) {
