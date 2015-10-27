@@ -66,6 +66,9 @@ app.on('ready', function() {
 ipc.on('app-close-main-window', function() {
     closeMainWindow();
 });
+ipc.on('app-quit', function() {
+    app.quit();
+});
 
 
 var hideWindow = null;
