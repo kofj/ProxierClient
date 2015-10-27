@@ -66,10 +66,15 @@ ep.tail('login', function() {
                 $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
-                ep.emit('load-login-page');
+                ep.emit('show-input-view');
             };
         }
     });
 });
 
+ep.tail('show-input-view', function() {
+    $('#login-check-view').addClass('hidden');
+    $('#login-input-view').removeClass('hidden');
+    $('#login-input-view').addClass('show');
+});
 ep.emit('is-login');
