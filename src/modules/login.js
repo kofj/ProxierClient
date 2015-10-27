@@ -63,6 +63,7 @@ ep.tail('login', function() {
             var res = JSON.parse(body);
             if (res.data) {
                 ep.emit('update-userinfo', res);
+                $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
                 ep.emit('load-login-page');
