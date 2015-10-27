@@ -38,7 +38,7 @@ ep.tail('is-login', function() {
     });
 });
 
-ep.tail('login',function() {
+ep.tail('login', function() {
     var options = {
         url: sysconfig.api('login'),
         headers: {
@@ -48,5 +48,17 @@ ep.tail('login',function() {
     }
 
     // send request
-    request.get(options, function(err, response, body) {});    
+    request.get(options, function(err, response, body) {
+        if (err) {
+            if (confirm('\t' + err + '\n\tCan not connet,click [OK] try again.Or [Cancel] quit app.\n')) {
+                ep.emit('is-login');
+            } else {
+                ipc.send('app-quit');
+            };
+        } else {
+
+        }
+    });
 });
+
+ep.emit('is-login');
