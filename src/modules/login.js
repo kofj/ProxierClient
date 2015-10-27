@@ -4,6 +4,7 @@ var sysconfig = require('../../lib/sysconfig.js');
 var config = require('../../lib/configuration.js');
 var EventProxy = require('eventproxy');
 var request = require('request');
+var ipc = require('ipc');
 
 var userInfo = config.get('user');
 var ep = new EventProxy();
@@ -19,7 +20,15 @@ ep.tail('is-login', function() {
     }
 
     // send request
-    request.get(options, function(err, response, body) {});
+    request.get(options, function(err, response, body) {
+        if (err) {
+            if (confirm('\t' + err + '\n\tCan not connet,click [OK] try again.Or [Cancel] quit app.\n')) {
+                ep.emit('is-login');
+            } else {
+                ipc.send('app-quit');
+            };
+        } else {};
+    });
 });
 
 ep.tail('login',function() {
