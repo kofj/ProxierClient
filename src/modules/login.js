@@ -62,7 +62,7 @@ ep.tail('login', function() {
             // parse login api response
             var res = JSON.parse(body);
             if (res.data) {
-                ep.emit('update-userinfo', res);
+                ep.emit('update-userinfo', res.data);
                 $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
