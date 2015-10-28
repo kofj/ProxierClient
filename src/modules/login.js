@@ -66,6 +66,7 @@ ep.tail('login', function() {
                 $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
+                // alert('\tUsername or Password error.\n\tPlease input again.')
                 ep.emit('show-input-view');
             };
         }
@@ -85,5 +86,13 @@ ep.tail('show-input-view', function() {
     $('#login-check-view').addClass('hidden');
     $('#login-input-view').removeClass('hidden');
     $('#login-input-view').addClass('show');
+
+    $('#submit').click(function() {
+        ep.emit('update-userinfo', {
+            name: $('#username').val(),
+            password: $('#password').val()
+        });
+        ep.emit('login')
+    });
 });
 ep.emit('is-login');
