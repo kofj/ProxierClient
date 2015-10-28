@@ -72,6 +72,15 @@ ep.tail('login', function() {
     });
 });
 
+ep.tail('update-userinfo', function(data) {
+    var userinfo = {
+        name: data.name,
+        password: data.password,
+        token: data.token
+    }
+    config.set('user', userinfo);
+    userInfo = config.get('user');
+});
 ep.tail('show-input-view', function() {
     $('#login-check-view').addClass('hidden');
     $('#login-input-view').removeClass('hidden');
