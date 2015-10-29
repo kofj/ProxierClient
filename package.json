@@ -8,7 +8,7 @@
     "dependencies": {
         "flags": "*",
         "nconf": "*",
-        "request": "*",
+        "request": "*"
     },
     "devDependencies": {},
     "scripts": {
