@@ -20,6 +20,10 @@ var multiple = new nconf.Provider({
     stores: [{
         name: 'user',
         type: 'file',
+        secure: {
+            secret: 'example-super-secret-key',
+            alg: 'aes-256-ctr'
+        },
         file: userConfigPath
     }, {
         name: 'sys',
