@@ -68,6 +68,10 @@ ipc.on('app-close-main-window', function() {
 ipc.on('app-quit', function() {
     app.quit();
 });
+ipc.on('login-success', function() {
+    isLogin = true;
+    closeLoginWindow();
+});
 
 
 var hideWindow = null;
