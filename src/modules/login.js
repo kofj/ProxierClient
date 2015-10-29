@@ -30,9 +30,7 @@ ep.tail('is-login', function() {
             var res = JSON.parse(body);
             if (res.data) {
                 ipc.send('login-success');
-            } else {
-                ep.emit('login');
-            };
+            }
         };
     });
 });
@@ -68,7 +66,7 @@ ep.tail('login', function() {
                 ipc.send('login-success');
             } else {
                 // alert('\tUsername or Password error.\n\tPlease input again.')
-                ep.emit('show-input-view');
+                // ep.emit('show-input-view');
             };
         }
     });
@@ -92,4 +90,12 @@ ep.tail('show-input-view', function() {
         ep.emit('login')
     });
 });
-ep.emit('is-login');
+
+if (config.get('user:token')) {
+    ep.emit('is-login');
+} else if (config.get('user:name') && config.get('user:password')) {
+    ep.emit('login');
+} else {
+    $('#username').val(config.get('user:name'));
+    ep.emit('show-input-view');
+};
