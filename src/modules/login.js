@@ -36,11 +36,15 @@ ep.tail('is-login', function() {
 });
 
 ep.tail('login', function() {
+    var logindata = {
+        name: $('#username').val(),
+        password: $('#password').val()
+    }
     var options = {
         url: sysconfig.getApi('login'),
         form: {
-            user: config.get('user:name'),
-            password: config.get('user:password'),
+            user: config.get('user:name') || logindata.name,
+            password: config.get('user:password') || logindata.password,
         }
     }
 
@@ -60,13 +64,16 @@ ep.tail('login', function() {
             var res = JSON.parse(body);
             if (res.data) {
                 ep.emit('update-userinfo', {
+                    name: logindata.name,
+                    password: logindata.password,
                     token: res.data.token
                 });
                 $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
-                // alert('\tUsername or Password error.\n\tPlease input again.')
-                // ep.emit('show-input-view');
+                alert('\tUsername or Password error.\n\tPlease input again.');
+                $('#username').val(config.get('user:name'));
+                ep.emit('show-input-view');
             };
         }
     });
@@ -82,15 +89,12 @@ ep.tail('show-input-view', function() {
     $('#login-input-view').removeClass('hidden');
     $('#login-input-view').addClass('show');
 
-    $('#submit').click(function() {
-        ep.emit('update-userinfo', {
-            name: $('#username').val(),
-            password: $('#password').val()
-        });
-        ep.emit('login')
+    $('#submit').on('click', function() {
+        ep.emit('login');
     });
 });
 
+// login process
 if (config.get('user:token')) {
     ep.emit('is-login');
 } else if (config.get('user:name') && config.get('user:password')) {
