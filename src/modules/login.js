@@ -103,3 +103,21 @@ if (config.get('user:token')) {
     $('#username').val(config.get('user:name'));
     ep.emit('show-input-view');
 };
+
+// listen input event
+$(document).ready(function() {
+    $('#username').keyup(function() {
+        if ($(this).val() && $('#password').val()) {
+            $('fieldset').attr('disabled', false);
+        } else {
+            $('fieldset').attr('disabled', true);
+        };
+    });
+    $('#password').keyup(function() {
+        if ($(this).val() && $('#username').val()) {
+            $('fieldset').attr('disabled', false);
+        } else {
+            $('fieldset').attr('disabled', true);
+        };
+    });
+});
