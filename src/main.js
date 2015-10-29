@@ -120,6 +120,7 @@ var loadLoginWindow = function(show) {
     loginWindow = new BrowserWindow({
         height: 350,
         width: 300,
+        frame: false,
         resizable: false,
         show: show
     });
