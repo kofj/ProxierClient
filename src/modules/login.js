@@ -72,7 +72,7 @@ ep.tail('login', function() {
                 ipc.send('login-success');
             } else {
                 alert('\tUsername or Password error.\n\tPlease input again.');
-                $('#username').val(config.get('user:name'));
+                $('#username').val(config.get('user:name') || logindata.name);
                 ep.emit('show-input-view');
             };
         }
