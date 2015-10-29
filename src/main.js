@@ -8,7 +8,6 @@ var BrowserWindow = require('browser-window');
 var flags = require('flags');
 var ipc = require('ipc');
 var Tray = require('tray');
-var config = require('./lib/configuration.js');
 var Menu = require('menu');
 
 
