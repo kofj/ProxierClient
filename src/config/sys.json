@@ -1,0 +1,13 @@
+{
+    "apihost": "http://127.0.0.1:8080/api/v1/",
+    "api": {
+        "islogin": {
+            "url": "islogin",
+            "comment": ""
+        },
+        "login": {
+            "url": "login",
+            "comment": "[request]form:{user: username, password: password}"
+        }
+    }
+}
