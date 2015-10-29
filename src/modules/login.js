@@ -1,21 +1,20 @@
 'use strict';
 
-var sysconfig = require('../../lib/sysconfig.js');
-var config = require('../../lib/configuration.js');
+var sysconfig = require('../../lib/config.js').sys;
+var config = require('../../lib/config.js').user;
 var EventProxy = require('eventproxy');
 var request = require('request');
 var ipc = require('ipc');
 
-var userInfo = config.get('user');
 var ep = new EventProxy();
 
 // check user is login.
 ep.tail('is-login', function() {
     var options = {
-        url: sysconfig.api('islogin'),
+        url: sysconfig.getApi('islogin'),
         headers: {
-            user: userInfo.name,
-            token: userInfo.token,
+            user: config.get('user:name'),
+            token: config.get('user:token'),
         }
     }
 
@@ -40,10 +39,10 @@ ep.tail('is-login', function() {
 
 ep.tail('login', function() {
     var options = {
-        url: sysconfig.api('login'),
+        url: sysconfig.getApi('login'),
         form: {
-            user: userInfo.name,
-            password: userInfo.password,
+            user: config.get('user:name'),
+            password: config.get('user:password'),
         }
     }
 
@@ -62,7 +61,9 @@ ep.tail('login', function() {
             // parse login api response
             var res = JSON.parse(body);
             if (res.data) {
-                ep.emit('update-userinfo', res.data);
+                ep.emit('update-userinfo', {
+                    token: res.data.token
+                });
                 $('#login-process-tips').html('Login success.')
                 ipc.send('login-success');
             } else {
@@ -74,13 +75,9 @@ ep.tail('login', function() {
 });
 
 ep.tail('update-userinfo', function(data) {
-    var userinfo = {
-        name: data.name,
-        password: data.password,
-        token: data.token
+    for (var key in data) {
+        config.set('user:' + key, data[key]);
     }
-    config.set('user', userinfo);
-    userInfo = config.get('user');
 });
 ep.tail('show-input-view', function() {
     $('#login-check-view').addClass('hidden');
