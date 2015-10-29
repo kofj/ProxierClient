@@ -89,7 +89,7 @@ ep.tail('show-input-view', function() {
     $('#login-input-view').removeClass('hidden');
     $('#login-input-view').addClass('show');
 
-    $('#submit').on('click', function() {
+    $('#submit').off().on('click', function() {
         ep.emit('login');
     });
 });
