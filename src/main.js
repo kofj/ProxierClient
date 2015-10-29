@@ -118,7 +118,7 @@ var loginWindow = null;
 var loadLoginWindow = function(show) {
     show = show == undefined ? false : show;
     loginWindow = new BrowserWindow({
-        height: 400,
+        height: 350,
         width: 300,
         resizable: false,
         show: show
